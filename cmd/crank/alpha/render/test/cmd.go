@@ -19,6 +19,8 @@ package test
 
 import (
 	"context"
+	"fmt"
+	"os"
 	"time"
 
 	"github.com/alecthomas/kong"
@@ -114,8 +116,9 @@ func (c *Cmd) Run(_ *kong.Context, log logging.Logger) error {
 	}
 
 	if !result.Pass {
-		return errors.New("test failed")
+		return errors.New("test failed: differences found between expected and actual outputs")
 	}
+	_, _ = fmt.Fprintln(os.Stdout, "All tests passed")
 
 	return nil
 }
